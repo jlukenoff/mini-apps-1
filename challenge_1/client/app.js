@@ -28,7 +28,6 @@ var checkWin = function(row, col) {
     winner.innerHTML = +winner.innerHTML + 1;
     gameOver = true;
     return true;
-
   } 
   if (matrix.join('').search('0') === -1) {
     var winnerNode = document.createElement('h1');
@@ -74,16 +73,14 @@ var handleNameChange = function(e) {
   if (e.which !== 1 && e.which !== 13) {
     console.log(e.which);
     return;
-
   }
-
   var which = document.getElementById('player-select').value.toLowerCase();
   if (which === 'x') {
     playerNames[0] = document.getElementById('player-name').value;
     document.getElementById('x-name').innerHTML = playerNames[0];
   } else if (which === 'o') {
     playerNames[1] = document.getElementById('player-name').value;
-    document.getElementById('o-name').innerHTML = playerNames[0];
+    document.getElementById('o-name').innerHTML = playerNames[1];
   } else if (which){
     console.log('error');
     var error = document.createElement('p');
