@@ -1,3 +1,4 @@
+/* ----Board State------ */
 var matrix = [
   [0, 0, 0],
   [0, 0, 0],
@@ -71,7 +72,7 @@ var handleClick = function(event) {
 
 var handleNameChange = function(e) {
   if (e.which !== 1 && e.which !== 13) {
-    console.log(e.which);
+    
     return;
   }
   var which = document.getElementById('player-select').value.toLowerCase();
@@ -82,7 +83,6 @@ var handleNameChange = function(e) {
     playerNames[1] = document.getElementById('player-name').value;
     document.getElementById('o-name').innerHTML = playerNames[1];
   } else if (which){
-    console.log('error');
     var error = document.createElement('p');
     error.innerHTML = 'Please select a player';
     error.style.color = 'red';
@@ -97,7 +97,7 @@ var handleNameChange = function(e) {
 };
 
 
-//attaches click handlers
+/*----- Attach Handlers -----*/
 var spaces = document.getElementsByClassName('col');
 for (var i = 0; i < spaces.length; i++) {
   spaces[i].onclick = handleClick;
