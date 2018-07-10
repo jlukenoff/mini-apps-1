@@ -9,14 +9,15 @@ var playerNames = ['Player X', 'Player O'];
 var curr = 0;
 var gameOver = false;
 
-
-/* -------User Input Handlers-------- */
+/* ------Checks for win after click---------- */
 var checkWin = function(row, col) {
+  /* model */
   var winningString = players[curr].repeat(3);
   var colString = matrix[0][col] + matrix[1][col] + matrix[2][col];
   var diagString = matrix[0][0] + matrix[1][1] + matrix[2][2];
   var revDiagString = matrix[0][2] + matrix[1][1] + matrix[2][0];
   if (matrix[row].join('') === winningString || colString === winningString || diagString === winningString || revDiagString === winningString) {
+    /* view */
     var winnerNode = document.createElement('h1');
     winnerNode.innerHTML = playerNames[curr] + ' wins!';
     winnerNode.setAttribute('id', 'game-over');
@@ -27,10 +28,12 @@ var checkWin = function(row, col) {
     }, 3000);
     var winner = document.getElementById(players[curr].toLowerCase());
     winner.innerHTML = +winner.innerHTML + 1;
+    /* model */
     gameOver = true;
     return true;
   } 
   if (matrix.join('').search('0') === -1) {
+    /* view */
     var winnerNode = document.createElement('h1');
     winnerNode.innerHTML = 'It\'s a tie!';
     winnerNode.setAttribute('id', 'game-over');
@@ -43,8 +46,10 @@ var checkWin = function(row, col) {
   return false;
 } 
 
+/* -------User Input Handlers-------- */
 var handleClick = function(event) {
   if (gameOver) {
+    /* view */
     var winnerNode = document.createElement('h1');
     winnerNode.innerHTML = 'Game over!';
     winnerNode.setAttribute('id', 'game-over');
@@ -55,15 +60,20 @@ var handleClick = function(event) {
     }, 3000);
     return;
   }
+  /* model */
   var row = Number(event.target.id[0]);
   var col = Number(event.target.id[1]);
-  var player = players[curr];
-  var node = event.target;
   if (row !== 0 && row !== 1 && row !== 2) {
     return;
   }
+  var player = players[curr];
   matrix[row][col] = player;
+
+  /* view */
+  var node = event.target;
   node.innerHTML = '<h1 class="piece">' + player + '</h1>';
+
+  /* model */
   if (checkWin(row, col)) {
     return;
   };
@@ -71,6 +81,7 @@ var handleClick = function(event) {
 };
 
 var handleNameChange = function(e) {
+  /* controller */
   if (e.which !== 1 && e.which !== 13) {
     return;
   }
