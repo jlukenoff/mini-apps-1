@@ -59,7 +59,7 @@ var handleClick = function(event) {
   var col = Number(event.target.id[1]);
   var player = players[curr];
   var node = event.target;
-  if (matrix[row][col] !== 0) {
+  if (row !== 0 && row !== 1 && row !== 2) {
     return;
   }
   matrix[row][col] = player;
@@ -72,7 +72,6 @@ var handleClick = function(event) {
 
 var handleNameChange = function(e) {
   if (e.which !== 1 && e.which !== 13) {
-    
     return;
   }
   var which = document.getElementById('player-select').value.toLowerCase();
