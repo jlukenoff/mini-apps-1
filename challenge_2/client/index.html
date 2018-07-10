@@ -1,17 +1,30 @@
 <!DOCTYPE HTML>
 <head>
+  <link rel="stylesheet" href="style.css">
   <script src='./lib/jquery-3.3.1.min.js'></script>
 </head>
 <body>
-  <h1>Hello world</h1>
+  <h2>Add data here:</h2>
   <form id="user-info-form">
     <div class="form-input">
-      <label for="input-data">Employee Info:</label>
-      <input name="input-data" id="user-input">
+      <textarea rows="20" cols="50" name="input-data" id="user-input">
+
+      </textarea>
+
     </div>
     <div class="form-input">
       <button>Submit</button>
     </div>
   </form>
+  <table id="employee-table">
+    <th>ID</th>
+    <th>First Name</th>
+    <th>Last Name</th>
+    <th>County</th>
+    <th>City</th>
+    <th>Role</th>
+    <th>Sales</th>
+    <tbody id="employees"></tbody>
+  </table>
   <script src="./app.js"></script>
 </body>
