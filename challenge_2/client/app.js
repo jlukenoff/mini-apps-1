@@ -1,7 +1,8 @@
 class App {
-  constructor() {
+  constructor(server) {
     this.handleFormSubmit = this.handleFormSubmit.bind(this);
     this.renderData = this.renderData.bind(this);
+    this.server = server;
   }
 
   handleFormSubmit(e) {
@@ -11,7 +12,7 @@ class App {
   }
 
   sendData(data) {
-    $.post('http://127.0.0.1:3000', JSON.parse(data), this.renderData);
+    $.post(this.server, JSON.parse(data), this.renderData);
   }
 
   renderData(resp) {
@@ -21,6 +22,8 @@ class App {
       let employee = emps[i].split(',');
       if (employee.length <= 1) {
         continue;
+      } else if (employee.length === 7) {
+        employee.push('N/A');
       }
       let output = 
       `<td>${employee[0]}</td>
@@ -29,7 +32,8 @@ class App {
       <td>${employee[3]}</td>
       <td>${employee[4]}</td>
       <td>${employee[5]}</td>
-      <td>${employee[6]}</td>`;
+      <td>${employee[6]}</td>
+      <td>${employee[7]}</td>`;
       let node = document.createElement('tr');
       node.setAttribute('class', 'employee-data');
       node.innerHTML = output;
@@ -38,7 +42,7 @@ class App {
   }
 }
 
-document.getElementById('user-info-form').addEventListener('submit', new App().handleFormSubmit);
+document.getElementById('user-info-form').addEventListener('submit', new App('http://127.0.0.1:3000').handleFormSubmit);
 
 
 
