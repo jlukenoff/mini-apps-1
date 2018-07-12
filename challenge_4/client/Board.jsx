@@ -84,7 +84,6 @@ export default class Board extends React.Component {
       alert('game over');
       return;
     }
-    
   }
 
   render() {
