@@ -1,4 +1,3 @@
-/* creates a board and stores game state matrix */
 import React from 'react';
 import Row from './Row.jsx';
 
@@ -39,6 +38,29 @@ export default class Board extends React.Component {
     this.checkWin(final, currentMatrix);
   }
 
+  handleWin(player, matrix) {
+    //should render a message overlaid on top of board
+    //should disable drop btns
+    //should send matrix to server (then to db)
+    let postBody = {
+      matrix: matrix,
+      winner: player
+    };
+    fetch('http://127.0.0.1:3000/winfo', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(postBody)
+    })
+      .then(resp => resp.json())
+      .then(data => console.log(data))
+      .catch(err => {
+        if (err) throw err;
+      });
+    //should update score board
+  }
+
   checkWin(pos, matrix) {
     let lat = pos[1];
     let long = pos[0];
@@ -46,20 +68,17 @@ export default class Board extends React.Component {
     let row = matrix[long].join(''); 
     let col = matrix.reduce((str, row) => (str + row[lat]), '');
     if (col.search(winningString) >= 0 || row.search(winningString) >= 0) {
-      alert('game over');
+      this.handleWin('red', matrix);
       return;
     }
     let axis = '';
     let initIdx = lat - long;
 
     for (let i = 0; i < matrix.length; i++) {
-      if (initIdx < 0) {
-        initIdx++;
-        continue;
-      } else {
+      if (initIdx >= 0) {
         axis += matrix[i][initIdx];
-        initIdx++;
-      }
+      } 
+      initIdx++;
     }
 
     if (axis.search(winningString) >= 0) {
